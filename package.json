@@ -1,0 +1,25 @@
+{
+  "name": "projecttech",
+  "version": "1.0.0",
+  "description": "project tech werk",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JarnoVoogd/projectTech.git"
+  },
+  "author": "jarno voogd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JarnoVoogd/projectTech/issues"
+  },
+  "homepage": "https://github.com/JarnoVoogd/projectTech#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "slug": "^8.2.2"
+  }
+}
