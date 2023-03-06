@@ -9,7 +9,6 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
-    // res.send('<h1> Welkom bij deze matching app</h1>')
     res.render('pages/index')
 })
 
@@ -17,9 +16,6 @@ app.get('/about', (req, res) => {
     res.render('pages/about')
 })
 
-// app.get('/myprofile', (req, res) => {
-//     res.render('pages/myprofile')
-// })
 
 const jarnovoogd = {
     name : "Jarno Voogd",
