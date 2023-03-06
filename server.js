@@ -24,8 +24,9 @@ app.get('/about', (req, res) => {
 const jarnovoogd = {
     name : "Jarno Voogd",
     age : "22",
-    about: "Hi, I'm 22 years old and I love Techno. I'm currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
-    image: '/images/imageJarno.jpg'
+    about : "Hi, I'm 22 years old and I love Techno. I'm currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
+    image : '/images/imageJarno.jpg',
+    favSongs : "Red Armor, Baby"
     
 }
 
@@ -33,7 +34,8 @@ const svenzoutman = {
     name : "Sven Zoutman",
     age : "22",
     about : "I like turtles",
-    image : '/images/imageSven.jpeg'
+    image : '/images/imageSven.jpeg',
+    favSongs : "Both, Samantha"
 }
 
 
@@ -46,8 +48,9 @@ app.get('/myprofile/:user', (req, res) => {
         res.render('pages/myprofile', {
             userName : jarnovoogd.name,
             age : jarnovoogd.age,
-            about: jarnovoogd.about,
-            image: jarnovoogd.image
+            about : jarnovoogd.about,
+            image : jarnovoogd.image,
+            songs : jarnovoogd.favSongs 
         })
     } else if (userNameRoute == "svenzoutman"){
         console.log("hoi sven")
@@ -55,7 +58,8 @@ app.get('/myprofile/:user', (req, res) => {
             userName : svenzoutman.name,
             age : svenzoutman.age,
             about: svenzoutman.about,
-            image : svenzoutman.image
+            image : svenzoutman.image,
+            songs : svenzoutman.favSongs
         })
     }
 })
