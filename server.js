@@ -1,3 +1,4 @@
+const { ifError } = require('assert')
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -16,8 +17,47 @@ app.get('/about', (req, res) => {
     res.render('pages/about')
 })
 
-app.get('/myprofile', (req, res) => {
-    res.render('pages/myprofile')
+// app.get('/myprofile', (req, res) => {
+//     res.render('pages/myprofile')
+// })
+
+const jarnovoogd = {
+    name : "Jarno Voogd",
+    age : "22",
+    about: "Hi, I'm 22 years old and I love Techno. I'm currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
+    image: '/images/imageJarno.jpg'
+    
+}
+
+const svenzoutman = {
+    name : "Sven Zoutman",
+    age : "22",
+    about : "I like turtles",
+    image : '/images/imageSven.jpeg'
+}
+
+
+app.get('/myprofile/:user', (req, res) => {
+    let userNameRoute = req.params.user
+    console.log(`dit is de pagina van ${req.params.user}`)
+
+    if (userNameRoute == "jarnovoogd"){
+        console.log("hoi jarno")
+        res.render('pages/myprofile', {
+            userName : jarnovoogd.name,
+            age : jarnovoogd.age,
+            about: jarnovoogd.about,
+            image: jarnovoogd.image
+        })
+    } else if (userNameRoute == "svenzoutman"){
+        console.log("hoi sven")
+        res.render('pages/myprofile' , {
+            userName : svenzoutman.name,
+            age : svenzoutman.age,
+            about: svenzoutman.about,
+            image : svenzoutman.image
+        })
+    }
 })
 
 
