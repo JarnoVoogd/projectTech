@@ -17,7 +17,7 @@ app.get('/about', (req, res) => {
 })
 
 
-const jarnovoogd = {
+const id1 = {
     name : "Jarno Voogd",
     age : "22",
     about : "Hi, I'm 22 years old and I love Techno. I'm currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
@@ -26,7 +26,7 @@ const jarnovoogd = {
     
 }
 
-const svenzoutman = {
+const id2 = {
     name : "Sven Zoutman",
     age : "22",
     about : "I like turtles",
@@ -34,31 +34,35 @@ const svenzoutman = {
     favSongs : "Both, Samantha"
 }
 
+const id3 = {
+    name : "Ronan Doeleman",
+    age : "22",
+    about : "Ik houd van loodgieten en koud douchen",
+    image : '/images/imageRonan.jpg',
+    favSongs : "Fashion, Drip too hard"
+} 
+
 
 app.get('/myprofile/:user', (req, res) => {
     let userNameRoute = req.params.user
     console.log(`dit is de pagina van ${req.params.user}`)
 
-    if (userNameRoute == "jarnovoogd"){
+    if (userNameRoute === "id1"){
         console.log("hoi jarno")
         res.render('pages/myprofile', {
-            userName : jarnovoogd.name,
-            age : jarnovoogd.age,
-            about : jarnovoogd.about,
-            image : jarnovoogd.image,
-            songs : jarnovoogd.favSongs 
+            user : id1
         })
-    } else if (userNameRoute == "svenzoutman"){
+    } else if (userNameRoute === "id2"){
         console.log("hoi sven")
         res.render('pages/myprofile' , {
-            userName : svenzoutman.name,
-            age : svenzoutman.age,
-            about: svenzoutman.about,
-            image : svenzoutman.image,
-            songs : svenzoutman.favSongs
+            user: id2
         })
-    }
-})
+    } else if (userNameRoute === "id3"){
+        console.log("hoi ronan")
+        res.render('pages/myprofile' , {
+            user: id3
+        })
+}})
 
 
 

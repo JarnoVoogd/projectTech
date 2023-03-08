@@ -17,12 +17,12 @@
 
     <main class="myProfile-main">
         <h1 class="myProfile-title">My profile</h1>
-        <h2 class="myProfile-name"> <%= userName %></h2>
+        <h2 class="myProfile-name"> <%= user.name %></h2>
         <button class="myProfile-but1">following</button>
         <button class="myProfile-but2">followers</button>
-        <p class="myProfile-about"> <%= about %></p>
-        <p class="myProfile-songs"><%= songs %></p>
-        <img class="myProfile-image" src="<%= image %>" alt="profile picture jarno">
+        <p class="myProfile-about"> <%= user.about %></p>
+        <p class="myProfile-songs"><%= user.songs %></p>
+        <img class="myProfile-image" src="<%= user.image %>" alt="profile picture jarno">
 
     </main>
 
