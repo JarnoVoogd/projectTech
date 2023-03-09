@@ -143,3 +143,72 @@ button.myProfile-but2 {
 .footerText {
    font-weight: 100 ;
 }
+
+
+
+/*******************************************  
+Main Explore
+*******************************************/
+
+main.exploreMain {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto 1fr 1fr ;
+    grid-template-areas: 
+    "title title title title"
+    "name name image image"
+    "button1 button2 image image"
+    "about songs image image";
+}
+
+div#profiles {
+    display: grid;
+
+}
+
+div#profiles div {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto 1fr 1fr ;
+    grid-template-areas: 
+    "title title title title"
+    "name name image image"
+    "button1 button2 image image"
+    "about songs image image";
+}
+
+div#profiles img{
+    width: 20em;
+    
+}
+
+div#profiles h2{
+    grid-area: title;
+}
+
+h2.myProfile-name {
+    grid-area: name;
+}
+
+p.myProfile-about {
+    grid-area: about;
+    margin: 0 2em 0 2em;
+}
+
+img.myProfile-image {
+    grid-area: image;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+}
+
+button.myProfile-but1 {
+    grid-area: button1;
+}
+
+button.myProfile-but2 {
+    grid-area: button2;
+}
+
+.footerText {
+   font-weight: 100 ;
+}

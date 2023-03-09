@@ -15,48 +15,43 @@
         <%- include('../includes/header'); %>
     </header>
 
-    <main>
+    <main class="explore-main">
       <h1>Welcome to RaveMatch</h1>
       <p>We'll help you find your perfect rave partner</p>
-      <div class="profile-container"></div>
 
 
-    <div id="profiles"></div>
+        <div id="profiles"></div>
 
-    <script>
-        const profilesContainer = document.getElementById("profiles");
+        <script>
+            const profilesContainer = document.getElementById("profiles");
 
-        profiles.forEach((profiel) => {
-        const profileElement = document.createElement("div");
+            profiles.forEach((profiel) => {
+            const profileElement = document.createElement("div");
 
-        const profileNameElement = document.createElement("h2");
-        profileNameElement.textContent = profiel.name;
-        profileElement.appendChild(profileNameElement);
+            const profileNameElement = document.createElement("h2");
+            profileNameElement.textContent = profiel.name;
+            profileElement.appendChild(profileNameElement);
 
-        const profileAgeElement = document.createElement("p");
-        profileAgeElement.textContent = `Age: ${profiel.age}`;
-        profileElement.appendChild(profileAgeElement);
+            const profileAgeElement = document.createElement("p");
+            profileAgeElement.textContent = `Age: ${profiel.age}`;
+            profileElement.appendChild(profileAgeElement);
 
-        const profileAboutElement = document.createElement("p");
-        profileAboutElement.textContent = profiel.about;
-        profileElement.appendChild(profileAboutElement);
+            const profileAboutElement = document.createElement("p");
+            profileAboutElement.textContent = profiel.about;
+            profileElement.appendChild(profileAboutElement);
+            
+            const profileFollowElement = document.createElement("button");
+            profileFollowElement.textContent = "Follow";
+            profileElement.appendChild(profileFollowElement);
 
-        const profileImageElement = document.createElement("img");
-        profileImageElement.src = profiel.image;
-        profileImageElement.alt = `${profiel.name}'s profile picture`;
-        profileElement.appendChild(profileImageElement);
+            const profileImageElement = document.createElement("img");
+            profileImageElement.src = profiel.image;
+            profileImageElement.alt = `${profiel.name}'s profile picture`;
+            profileElement.appendChild(profileImageElement);
 
-        profilesContainer.appendChild(profileElement);
-      });
-    </script>
-
-
-
-
-
-
-
-
+            profilesContainer.appendChild(profileElement);
+        });
+        </script>
     </main>
 
     <footer>
