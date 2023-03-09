@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/public/scripts/profilesBrowser.js"></script>
+    <%- include('../includes/head'); %>
+
+    <title>About</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../includes/header'); %>
+    </header>
+
+    <main>
+      <h1>Welcome to RaveMatch</h1>
+      <p>We'll help you find your perfect rave partner</p>
+      <div class="profile-container"></div>
+
+
+    <div id="profiles"></div>
+
+    <script>
+        const profilesContainer = document.getElementById("profiles");
+
+        profiles.forEach((profiel) => {
+        const profileElement = document.createElement("div");
+
+        const profileNameElement = document.createElement("h2");
+        profileNameElement.textContent = profiel.name;
+        profileElement.appendChild(profileNameElement);
+
+        const profileAgeElement = document.createElement("p");
+        profileAgeElement.textContent = `Age: ${profiel.age}`;
+        profileElement.appendChild(profileAgeElement);
+
+        const profileAboutElement = document.createElement("p");
+        profileAboutElement.textContent = profiel.about;
+        profileElement.appendChild(profileAboutElement);
+
+        const profileImageElement = document.createElement("img");
+        profileImageElement.src = profiel.image;
+        profileImageElement.alt = `${profiel.name}'s profile picture`;
+        profileElement.appendChild(profileImageElement);
+
+        profilesContainer.appendChild(profileElement);
+      });
+    </script>
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer>
+        <%- include('../includes/footer'); %>
+    </footer>
+    
+</body>
+</html>
+
+
+
+
+
+
+
