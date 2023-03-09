@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "devStart": "nodemon server",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint server.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "slug": "^8.2.2"
   },
   "devDependencies": {
+    "eslint": "^8.35.0",
     "nodemon": "^2.0.21"
   }
 }
