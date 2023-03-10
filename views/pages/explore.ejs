@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="/public/scripts/profilesBrowser.js"></script>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <%- include('../includes/head'); %>
 
     <title>About</title>
@@ -15,42 +14,110 @@
         <%- include('../includes/header'); %>
     </header>
 
-    <main class="explore-main">
-      <h1>Welcome to RaveMatch</h1>
-      <p>We'll help you find your perfect rave partner</p>
+    <main class='explore-main'>
+        <h1>Explore</h1>
+        <p>Find new people to follow!</p>
 
 
-        <div id="profiles"></div>
+        <div id='profiles'></div>
 
         <script>
-            const profilesContainer = document.getElementById("profiles");
 
-            profiles.forEach((profiel) => {
-            const profileElement = document.createElement("div");
+            const profiles = JSON.parse(`<%- JSON.stringify(profiles) %>`);
+            console.log(profiles)
 
-            const profileNameElement = document.createElement("h2");
-            profileNameElement.textContent = profiel.name;
-            profileElement.appendChild(profileNameElement);
+            const profilesContainer = document.getElementById('profiles');
 
-            const profileAgeElement = document.createElement("p");
-            profileAgeElement.textContent = `Age: ${profiel.age}`;
-            profileElement.appendChild(profileAgeElement);
+            // Define a function to update the follow status
+            const updateFollowStatus = (profileId, follow) => {
+              // Find the profile object with the matching ID
+              const profile = profiles.find((p) => p.id === profileId);
+              if (profile) {
+                // Update the follow status
+                profile.follow = follow;
+                // Update the button text
+                const button = document.querySelector(`.${profileId} button`);
+                button.textContent = follow ? 'Unfollow' : 'Follow';
+              }
+            };
 
-            const profileAboutElement = document.createElement("p");
-            profileAboutElement.textContent = profiel.about;
-            profileElement.appendChild(profileAboutElement);
-            
-            const profileFollowElement = document.createElement("button");
-            profileFollowElement.textContent = "Follow";
-            profileElement.appendChild(profileFollowElement);
+            // Define a function to handle follow button click events
+            const handleFollowClick = (event) => {
+              const button = event.target;
+              const profileId = button.parentNode.classList[0];
+              const isFollowing = button.textContent === 'Unfollow';
+              updateFollowStatus(profileId, !isFollowing);
+            };
 
-            const profileImageElement = document.createElement("img");
-            profileImageElement.src = profiel.image;
-            profileImageElement.alt = `${profiel.name}'s profile picture`;
-            profileElement.appendChild(profileImageElement);
+            profiles.forEach((profile) => {
+              const profileElement = document.createElement('div');
+              profileElement.classList.add(profile.id);
 
-            profilesContainer.appendChild(profileElement);
-        });
+              const profileNameElement = document.createElement('h2');
+              profileNameElement.textContent = profile.name;
+              profileElement.appendChild(profileNameElement);
+
+              const profileAgeElement = document.createElement('p');
+              profileAgeElement.textContent = `Age: ${profile.age}`;
+              profileElement.appendChild(profileAgeElement);
+
+              const profileSongsElement = document.createElement('p');
+              profileSongsElement.textContent = `Favourite songs: ${profile.songs}`;
+              profileElement.appendChild(profileSongsElement);
+
+              const profileAboutElement = document.createElement('p');
+              profileAboutElement.textContent = profile.about;
+              profileElement.appendChild(profileAboutElement);
+
+              const profileFollowElement = document.createElement('button');
+              profileFollowElement.textContent = profile.follow ? 'Unfollow' : 'Follow';
+              profileFollowElement.addEventListener('click', handleFollowClick);
+              profileElement.appendChild(profileFollowElement);
+
+              const profileImageElement = document.createElement('img');
+              profileImageElement.src = profile.image;
+              profileImageElement.alt = `${profile.name}'s profile picture`;
+              profileElement.appendChild(profileImageElement);
+
+              profilesContainer.appendChild(profileElement);
+            });
+
+
+             // const profilesContainer = document.getElementById('profiles');
+
+            // profiles.forEach((profile) => {
+            //     const profileElement = document.createElement('div');
+
+            //     const profileNameElement = document.createElement('h2');
+            //     profileNameElement.textContent = profile.name;
+            //     profileElement.appendChild(profileNameElement);
+
+            //     const profileAgeElement = document.createElement('p');
+            //     profileAgeElement.textContent = `Age: ${profile.age}`;
+            //     profileElement.appendChild(profileAgeElement);
+
+            //     const profileSongsElement = document.createElement('p');
+            //     profileSongsElement.textContent = `Favourite songs: ${profile.songs}`;
+            //     profileElement.appendChild(profileSongsElement);
+
+            //     const profileAboutElement = document.createElement('p');
+            //     profileAboutElement.textContent = profile.about;
+            //     profileElement.appendChild(profileAboutElement);
+                
+            //     const profileFollowElement = document.createElement('button');
+            //     profileFollowElement.textContent = 'Follow';
+            //     profileElement.appendChild(profileFollowElement);
+            //     profileFollowElement.classList.add(`${profile.id}`)
+
+            //     const profileImageElement = document.createElement('img');
+            //     profileImageElement.src = profile.image;
+            //     profileImageElement.alt = `${profile.name}'s profile picture`;
+            //     profileElement.appendChild(profileImageElement);
+
+            //     profileElement.classList.add(`${profile.id}`)
+
+            //     profilesContainer.appendChild(profileElement);
+            // });
         </script>
     </main>
 

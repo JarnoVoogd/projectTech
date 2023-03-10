@@ -154,11 +154,7 @@ main.exploreMain {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto 1fr 1fr ;
-    grid-template-areas: 
-    "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
+
 }
 
 div#profiles {
@@ -167,46 +163,43 @@ div#profiles {
 }
 
 div#profiles div {
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto 1fr 1fr ;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto ;
     grid-template-areas: 
-    "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
+    "name button image image"
+    "age songs image image"
+    "about about image image";
+    background-color: var(--mainGrijs);
+    margin: 0 0 2em 0;
+    align-items: center;
+    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
 div#profiles img{
-    width: 20em;
-    
-}
-
-div#profiles h2{
-    grid-area: title;
-}
-
-h2.myProfile-name {
-    grid-area: name;
-}
-
-p.myProfile-about {
-    grid-area: about;
-    margin: 0 2em 0 2em;
-}
-
-img.myProfile-image {
     grid-area: image;
-    height: auto;
     width: auto;
     max-width: 100%;
 }
 
-button.myProfile-but1 {
-    grid-area: button1;
+div#profiles h2{
+    grid-area: name;
 }
 
-button.myProfile-but2 {
-    grid-area: button2;
+div#profiles p:nth-of-type(1) {
+    grid-area: age;
+}
+
+div#profiles p:nth-of-type(2) {
+    grid-area: songs;
+}
+
+div#profiles p:nth-of-type(3) {
+    grid-area: about;
+}
+
+div#profiles button {
+    grid-area: button;
 }
 
 .footerText {

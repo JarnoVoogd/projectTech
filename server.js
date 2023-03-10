@@ -1,29 +1,48 @@
 const express = require('express')
-const app = express()
-const port = 3000 
-const path = require('path');
-0
+const app = express();
 app.set('view engine', 'ejs')
-
-
 app.use(express.static('public'))
 
-// toegevoegd omdat ik mime errors kreeg
-app.get('/public/scripts/profilesBrowser.js', (req, res) => {
-    res.setHeader('Content-Type', 'text/javascript');
-    res.sendFile(__dirname + '/public/scripts/profilesBrowser.js');
-  });
 
-app.get('/', (req, res) => {
-    res.render('pages/index')
+require('dotenv').config();
+const PORT = process.env.PORT || 3000;
+
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri = process.env.DB_CONNECTION_STRING;
+
+const client = new MongoClient(
+    uri,
+    { useNewUrlParser: true, useUnifiedTopology: true, ServerApi: ServerApiVersion.v1}
+)
+
+client.connect()
+    .then((res) => console.log('@@-- connection established', res)) 
+    .catch((err) => console.log('@@-- error', err))
+
+app.listen (PORT, () => {
+console. log(`Server listenting to port: ${PORT}`)
+
+const DB = client.db('bloktech').collection('profiles_bloktech');
+app.get('/', async (req, res) => {
+    const DATA = await DB.find({}).toArray();
+    console.log('@@-- data', DATA);
+    
+    res.render('pages/index', 
+        {profiles : DATA})
+
+    // res.json({
+    //     succes: true, 
+    //     message: 'connected',
+    //     // DATA
+    // })
+    
 })
 
-const profiles = require('./public/scripts/profilesNode.js')
-
-
-app.get('/myprofile/:user', (req, res) => {
+app.get('/myprofile/:user', async (req, res) => {
     let userNameRoute = req.params.user
-    let gekozenProfiel = profiles.find(profiel => profiel.id === userNameRoute)
+    const DATA = await DB.find({}).toArray();
+    console.log('@@-- data', DATA);
+    let gekozenProfiel = DATA.find(profiel => profiel.id === userNameRoute)
     console.log(`dit is de pagina van ${gekozenProfiel.name} `)
     console.log(gekozenProfiel)
 
@@ -32,10 +51,23 @@ app.get('/myprofile/:user', (req, res) => {
     })
 })
 
-app.get('/explore', (req, res) => {
-    res.render('pages/explore')
+// app.get('/explore', (req, res) => {
+//     res.render('pages/explore')
+// })
+
+app.get('/explore',  (req, res) => {
+    const DATA = DB.find({}).toArray();
+    console.log('@@-- data', DATA);
+    
+    res.render('pages/explore', 
+        {profiles : DATA})
+
+    // res.json({
+    //     succes: true, 
+    //     message: 'connected',
+    //     // DATA
+    // })
+    
 })
 
-app.listen(port, () => {
-    console.log(`deze app luistert naar port ${port}`)
 })
