@@ -1,3 +1,6 @@
 .env
 node_modules/
 .vscode
+server2.js
+verken.ejs
+public/scripts/profilesNode.js

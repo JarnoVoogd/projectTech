@@ -6,7 +6,8 @@
 //         "about" : "Hi, I'm 22 years old and I love techno. Im currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
 //         "image" : "/images/imageJarno.jpg", 
 //         "songs" : "Red Armor, Baby", 
-//         "follow" : false
+//         "follow" : false,
+//         "subId" : "id1"
 //     },
 //     {
 //         "id" : "id2", 
@@ -15,7 +16,8 @@
 //         "about" : "I like turtles.",
 //         "image" : "/images/imageSven.jpeg", 
 //         "songs" : "Both, Samantha", 
-//         "follow" : false
+//         "follow" : false,
+//         "subId" : "id2"
 //     },
 //     {
 //         "id" : "id3", 
@@ -24,7 +26,8 @@
 //         "about" : "Ik houd van loodgieten en koud douchen.",
 //         "image" : "/images/imageRonan.jpg", 
 //         "songs" : "Fashion, Drip too hard", 
-//         "follow" : false
+//         "follow" : false,
+//         "subId" : "id3"
 //     }    
 // ]
 
