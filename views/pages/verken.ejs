@@ -22,13 +22,18 @@
 
         <div id='profiles'>
             <% profiles.forEach((profile) => { %>
-              <div>
+              <div class="<%= profile.subId %>">
                 <h2><%= profile.name %></h2>
                 <p>Age:<%= profile.age %></p>
                 <p><%= profile.songs %></p>
                 <p><%= profile.about %></p>
-                <form action="">
-                    <button>Following</button>
+                <form action="/follow/<%= profile.subId %>" method="POST">
+                  <input type="hidden" name="profile_id" value="<%= profile.subId %>">
+                  <% if (profile.follow) { %>
+                    <button disabled>Following</button>
+                  <% } else { %>
+                    <button>Follow</button>
+                  <% } %>
                 </form>
                 <img src='<%= profile.image %>'>
               </div>
