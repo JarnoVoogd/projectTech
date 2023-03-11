@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <%- include('../includes/head'); %>
+
+    <title>About</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../includes/header'); %>
+    </header>
+
+    <main class='explore-main'>
+        <h1>Explore</h1>
+        <p>Find new people to follow!</p>
+
+        
+
+        <div id='profiles'>
+            <% profiles.forEach((profile) => { %>
+              <div>
+                <h2><%= profile.name %></h2>
+                <p>Age:<%= profile.age %></p>
+                <p><%= profile.songs %></p>
+                <p><%= profile.about %></p>
+                <form action="">
+                    <button>Following</button>
+                </form>
+                <img src='<%= profile.image %>'>
+              </div>
+            <% }); %>
+          </div>
+
+    
+    </main>
+
+    <footer>
+        <%- include('../includes/footer'); %>
+    </footer>
+    
+</body>
+</html>
+
+
+
+
+
+
+
