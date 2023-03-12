@@ -1,13 +1,18 @@
 const express = require('express')
 const APP = express();
+const BODY_PARSER = require('body-parser');
 APP.set('view engine', 'ejs')
 APP.use(express.static('public'))
+APP.use(BODY_PARSER.urlencoded({ extended: false }));
+APP.use(BODY_PARSER.json());
 
 
 require('dotenv').config();
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3000;
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
+// eslint-disable-next-line no-undef
 const URI = process.env.DB_CONNECTION_STRING;
 
 const CLIENT = new MongoClient(
@@ -39,38 +44,6 @@ APP.get('/', async (req, res) => {
 })
 
 
-// const profiles = [
-//     {
-//         "id" : "id1", 
-//         "name" : "Jarno Voogd", 
-//         "age" : "22", 
-//         "about" : "Hi, I'm 22 years old and I love techno. Im currently still in school studying webdevelopment. I would like to meet new people that share my love for techno.",
-//         "image" : "/images/imageJarno.jpg", 
-//         "songs" : "Red Armor, Baby", 
-//         "follow" : false,
-//         "subId" : "id1"
-//     },
-//     {
-//         "id" : "id2", 
-//         "name" : "Sven Zoutman", 
-//         "age" : "22", 
-//         "about" : "I like turtles.",
-//         "image" : "/images/imageSven.jpeg", 
-//         "songs" : "Both, Samantha", 
-//         "follow" : false,
-//         "subId" : "id2"
-//     },
-//     {
-//         "id" : "id3", 
-//         "name" : "Ronan Doeleman", 
-//         "age" : "22", 
-//         "about" : "Ik houd van loodgieten en koud douchen.",
-//         "image" : "/images/imageRonan.jpg", 
-//         "songs" : "Fashion, Drip too hard", 
-//         "follow" : false,
-//         "subId" : "id3"
-//     }    
-// ]
 
 // const DATA =  DB.find({}).toArray();
 
@@ -98,30 +71,19 @@ APP.get('/verken', async (req, res) => {
 })
 
 
-
 APP.post('/follow/:subId', async (req, res) => {
-    // const subId = req.params.subId;
-    const profileId = req.body.profile_id;
-    console.log("🚀 ~ file: server.js:112 ~ APP.post ~ profileId:", profileId)
-
-    const followStatus = req.body.follow_status === 'true';
-  
+    const subId = req.params.subId;
+    const followStatus = req.body.followStatus === 'true';
+    console.log("🚀 ~ file: server.js:150 ~ APP.post ~ req.body.followStatus:", req.body.followStatus)
+    
     // Update the profile's follow status in the database
-    await DB.updateOne({id: profileId}, {$set: {follow: followStatus}});
+    await DB.updateOne({subId: subId}, {$set: {follow: followStatus}});
   
     // Redirect the user back to the explore page
     res.redirect('/verken');
   });
-
   
-// APP.post('/follow/:subId', (req, res) => {
-//     const subId = req.params.subId;
-//     console.log("🚀 ~ file: server.js:102 ~ APP.post ~ subId:", subId)
-//     // Handle the follow request for the profile with the given subId
-    
-//     // Redirect the user back to the explore page
-//     res.redirect('/verken');
-// });
+
 
 
 APP.get('/myprofile/:user', async (req, res) => {
@@ -157,4 +119,3 @@ APP.get('/explore',  async (req, res) => {
 })
 
 })
-

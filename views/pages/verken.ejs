@@ -29,8 +29,9 @@
                 <p><%= profile.about %></p>
                 <form action="/follow/<%= profile.subId %>" method="POST">
                   <input type="hidden" name="profile_id" value="<%= profile.subId %>">
+                  <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
                   <% if (profile.follow) { %>
-                    <button disabled>Following</button>
+                    <button>Unfollow</button>
                   <% } else { %>
                     <button>Follow</button>
                   <% } %>
