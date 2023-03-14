@@ -7,12 +7,14 @@ APP.use(BODY_PARSER.urlencoded({ extended: false }));
 APP.use(BODY_PARSER.json());
 
 
+// eslint-disable-next-line no-undef
 require('dotenv').config();
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3000;
 
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
-// eslint-disable-next-line no-undef
+
 const URI = process.env.DB_CONNECTION_STRING;
 
 const CLIENT = new MongoClient(
@@ -27,46 +29,31 @@ CLIENT.connect()
 APP.listen (PORT, () => {
 console. log(`Server listenting to port: ${PORT}`)
 
+
+
 const DB = CLIENT.db('bloktech').collection('profiles_bloktech');
+const DB_ADMIN = CLIENT.db('bloktech').collection('admin_bloktech');
+
+
+
 APP.get('/', async (req, res) => {
     const DATA = await DB.find({}).toArray();
     // console.log('@@-- data', DATA);
     
     res.render('pages/index', 
         {profiles : DATA})
-
-    // res.json({
-    //     succes: true, 
-    //     message: 'connected',
-    //     // DATA
-    // })
-    
+   
 })
 
 
 
-// const DATA =  DB.find({}).toArray();
 
-// const DATA =  profiles;
-// const SCHONE_DATA = profiles.find(profiel => profiel.id)
-// console.log( DATA);
-// console.log(SCHONE_DATA)
 
-// DATA.forEach((profile) => {
-//     console.log(profile)
-// })
-
-// let html = '';
-
-// for (let i = 0; i < DATA.length; i++) {
-//     html += `<div>${DATA[i]}</div>`;
-//   }
-
-APP.get('/verken', async (req, res) => {
+APP.get('/explore', async (req, res) => {
     const DATA =  await DB.find({}).toArray();
     console.log("🚀 ~ file: server.js:94 ~ APP.get ~ DATA:", DATA)
     
-    res.render('pages/verken', {profiles : DATA});
+    res.render('pages/explore', {profiles : DATA});
     // res.render('pages/verken', { profiles : profiles});
 })
 
@@ -80,42 +67,39 @@ APP.post('/follow/:subId', async (req, res) => {
     await DB.updateOne({subId: subId}, {$set: {follow: followStatus}});
   
     // Redirect the user back to the explore page
-    res.redirect('/verken');
-  });
+    res.redirect('/explore');
+});
   
-
-
 
 APP.get('/myprofile/:user', async (req, res) => {
     let userNameRoute = req.params.user
-    const DATA = await DB.find({}).toArray();
-    console.log('@@-- data', DATA);
-    let gekozenProfiel = DATA.find(profiel => profiel.id === userNameRoute)
-    console.log(`dit is de pagina van ${gekozenProfiel.name} `)
-    console.log(gekozenProfiel)
+    
+    const DATA_ADMIN = await DB_ADMIN.find({}).toArray();
+    // console.log('@@-- data', DATA);
+    let gekozenProfiel = DATA_ADMIN.find(profiel => profiel.subId === userNameRoute)
+    // console.log(`dit is de pagina van ${gekozenProfiel.name} `)
+    // console.log(gekozenProfiel)
+    
+    const DATA_FOLLOWING = await DB.find({follow : true}).toArray()
+    console.log("🚀 ~ file: server.js:79 ~ APP.get ~ DATA_FOLLOWING:", DATA_FOLLOWING)
+    
+    
 
     res.render('pages/myprofile', {
         user : gekozenProfiel
     })
 })
 
-// APP.get('/explore', (req, res) => {
-//     res.render('pages/explore')
-// })
-
-APP.get('/explore',  async (req, res) => {
-    const DATA = await DB.find({}).toArray();
-    // console.log('@@-- data', DATA);
+APP.post('/following/:subId', async (req, res) => {
+    const subId = req.params.subId;
+    const followStatus = req.body.followStatus === 'true';
+    console.log("🚀 ~ file: server.js:150 ~ APP.post ~ req.body.followStatus:", req.body.followStatus)
     
-    res.render('pages/explore', 
-        {profiles : DATA})
-
-    // res.json({
-    //     succes: true, 
-    //     message: 'connected',
-    //     // DATA
-    // })
-    
-})
+    // Update the profile's follow status in the database
+    await DB.updateOne({subId: subId}, {$set: {follow: followStatus}});
+  
+    // Redirect the user back to the explore page
+    res.redirect('/myprofile/id1');
+});
 
 })
