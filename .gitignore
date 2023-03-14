@@ -3,5 +3,5 @@ node_modules/
 .vscode
 server2.js
 
-
+.eslintrc.json
 public/scripts/profilesNode.js
