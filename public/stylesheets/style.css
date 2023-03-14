@@ -11,7 +11,6 @@ html {
     margin: 0px;
     max-height: auto;
     scroll-behavior: smooth;
-    background-color: #000000;
 }
 
  
@@ -108,9 +107,10 @@ main.myProfile-main {
     grid-template-rows: auto auto 1fr 1fr ;
     grid-template-areas: 
     "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
+    "name button image image"
+    "age songs image image"
+    "about about image image";
+    align-items: center;
 }
 
 h1.myProfile-title{
@@ -126,6 +126,10 @@ p.myProfile-about {
     margin: 0 2em 0 2em;
 }
 
+p.myProfile-songs {
+    grid-area: songs;
+}
+
 img.myProfile-image {
     grid-area: image;
     height: auto;
@@ -133,12 +137,17 @@ img.myProfile-image {
     max-width: 100%;
 }
 
-button.myProfile-but1 {
+/* button.myProfile-but1 {
     grid-area: button1;
 }
 
 button.myProfile-but2 {
     grid-area: button2;
+} */
+
+a.myProfile-ahref {
+    grid-area: button;
+    color: var(--mainGrijs);
 }
 
 .footerText {
