@@ -103,13 +103,26 @@ Main MyProfile
 
 main.myProfile-main {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto 1fr 1fr ;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
     grid-template-areas: 
-    "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
+    "title"
+    "container";
+}
+
+main div.myProfile-container {
+    grid-area: container;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr ;
+    grid-template-areas: 
+    "name button image image"
+    "age songs image image"
+    "about about image image";
+    background-color: var(--mainGrijs);
+    margin: 0 0 2em 0;
+    align-items: center;
+    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
 h1.myProfile-title{
@@ -125,6 +138,10 @@ p.myProfile-about {
     margin: 0 2em 0 2em;
 }
 
+p.myProfile-songs {
+    grid-area: songs;
+}
+
 img.myProfile-image {
     grid-area: image;
     height: auto;
@@ -132,12 +149,29 @@ img.myProfile-image {
     max-width: 100%;
 }
 
-button.myProfile-but1 {
+/* button.myProfile-but1 {
     grid-area: button1;
 }
 
 button.myProfile-but2 {
     grid-area: button2;
+} */
+
+a.myProfile-ahref {
+    grid-area: button;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 3em;
+    margin: 0 2em 0 2em;
+    background-color: var(--tekstZwart);
+    color: var(--mainGeel);
+    text-decoration: none;
+    
+
+   
+    
 }
 
 .footerText {
@@ -150,16 +184,12 @@ button.myProfile-but2 {
 Main Explore
 *******************************************/
 
-main.exploreMain {
+/* main.explore-main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto 1fr 1fr ;
-    grid-template-areas: 
-    "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
-}
+
+} */
 
 div#profiles {
     display: grid;
@@ -167,48 +197,120 @@ div#profiles {
 }
 
 div#profiles div {
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto 1fr 1fr ;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto ;
     grid-template-areas: 
-    "title title title title"
-    "name name image image"
-    "button1 button2 image image"
-    "about songs image image";
+    "name button image image"
+    "age songs image image"
+    "about about image image";
+    background-color: var(--mainGrijs);
+    margin: 0 0 2em 0;
+    align-items: center;
+    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
 div#profiles img{
-    width: 20em;
-    
-}
-
-div#profiles h2{
-    grid-area: title;
-}
-
-h2.myProfile-name {
-    grid-area: name;
-}
-
-p.myProfile-about {
-    grid-area: about;
-    margin: 0 2em 0 2em;
-}
-
-img.myProfile-image {
     grid-area: image;
-    height: auto;
     width: auto;
     max-width: 100%;
 }
 
-button.myProfile-but1 {
-    grid-area: button1;
+div#profiles h2{
+    grid-area: name;
 }
 
-button.myProfile-but2 {
-    grid-area: button2;
+div#profiles p:nth-of-type(1) {
+    grid-area: age;
+}
+
+div#profiles p:nth-of-type(2) {
+    grid-area: songs;
+}
+
+div#profiles p:nth-of-type(3) {
+    grid-area: about;
+}
+
+div#profiles button {
+    grid-area: button;
 }
 
 .footerText {
    font-weight: 100 ;
+}
+
+
+/*******************************************  
+Main Following
+*******************************************/
+
+/* main.explore-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto 1fr 1fr ;
+
+} */
+
+div#following-profiles {
+    display: grid;
+
+}
+
+div#following-profiles div {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto ;
+    grid-template-areas: 
+    "name button image image"
+    "age songs image image"
+    "about about image image";
+    background-color: var(--mainGrijs);
+    margin: 0 0 2em 0;
+    align-items: center;
+    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+div#following-profiles img{
+    grid-area: image;
+    width: auto;
+    max-width: 100%;
+}
+
+div#following-profiles h2{
+    grid-area: name;
+}
+
+div#following-profiles p:nth-of-type(1) {
+    grid-area: age;
+}
+
+div#following-profiles p:nth-of-type(2) {
+    grid-area: songs;
+}
+
+div#following-profiles p:nth-of-type(3) {
+    grid-area: about;
+}
+
+div#following-profiles button {
+    grid-area: button;
+}
+
+div#empty-message {
+    padding: 2em;
+    background-color: var(--mainGrijs);
+}
+
+div#empty-message img{
+    height: auto;
+    width: 30%;
+}
+
+.footerText {
+   font-weight: 100 ;
+}
+
+.empty-message-hidden {
+    display: none;
 }
