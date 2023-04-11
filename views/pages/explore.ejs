@@ -4,14 +4,14 @@
     <meta charset='UTF-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <%- include('../includes/head'); %>
+    <%- include('../partials/head'); %>
 
     <title>About</title>
 </head>
 
 <body>
     <header>
-        <%- include('../includes/header'); %>
+        <%- include('../partials/header'); %>
     </header>
 
     <main class='explore-main'>
@@ -24,12 +24,12 @@
             <% profiles.forEach((profile) => { %>
               <div class="<%= profile.subId %>">
                 <h2><%= profile.name %></h2>
-                <p>Age:<%= profile.age %></p>
+                <p>Age: <%= profile.age %></p>
                 <p><%= profile.songs %></p>
                 <p><%= profile.about %></p>
-                <form action="/follow/<%= profile.subId %>" method="POST">
-                  <!-- <input type="hidden" name="profile_id" value="<%= profile.subId %>"> -->
+                <form action="/follow/<%= profile.subId %>" data-profile-id= "<%= profile.subId %>" method="POST">
                   <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
+                  
                   <% if (profile.follow) { %>
                     <button>Unfollow</button>
                   <% } else { %>
@@ -45,9 +45,10 @@
     </main>
 
     <footer>
-        <%- include('../includes/footer'); %>
+        <%- include('../partials/footer'); %>
     </footer>
-    
+    <script src='/scripts/navbarScript.js'></script>
+    <script src='/scripts/exploreConfirmButtonScript.js'></script>
 </body>
 </html>
 
