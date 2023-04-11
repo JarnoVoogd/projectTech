@@ -23,10 +23,35 @@ const CLIENT = new MongoClient(
 	{ useNewUrlParser: true, useUnifiedTopology: true, ServerApi: ServerApiVersion.v1}
 );
 
-const DB = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_PROFILES_NAME);
-const DB_ADMIN = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_ADMIN_NAME);
-const DB_GENERAL = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_GENERAL_NAME);
 
+// ******************
+// - Database Collections
+// ******************
+
+const DB = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_PROFILES_NAME)
+const DB_ADMIN = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_ADMIN_NAME)
+const DB_GENERAL = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_GENERAL_NAME)
+
+
+// ******************
+// - Middleware
+// ******************
+
+APP.use(express.static('public'))
+APP.use(BODY_PARSER.urlencoded({ extended: false }))
+APP.use(BODY_PARSER.json())
+
+
+// ******************
+// - Templating
+// ******************
+
+APP.set('view engine', 'ejs')
+
+
+// ******************
+// - Initiation database and Webserver
+// ******************
 
 CLIENT.connect()
 // .then((res) => console.log('@@-- connection established', res)) 
@@ -82,8 +107,9 @@ APP.post('following/follow/:subId', async (req, res) => {
 
 
 // *********************
-// -- My Profile Page, view Admin page
+// -- My Profile Page
 // *********************
+// <--- View the Admin profile --->
 
 APP.get('/myprofile/:user', async (req, res) => {
 	let USERNAME_ROUTE = req.params.user;
@@ -99,7 +125,12 @@ APP.get('/myprofile/:user', async (req, res) => {
 	});
 });
 
-//  <--- View the profiles Admin is currently following --->
+
+// ******************
+// - Following page
+// ******************
+// <--- View the profiles Admin is currently following --->
+
 APP.get('/following', async (req, res) => {
 	const DATA_FOLLOWING = await DB.find({follow : true}).toArray();
 	const EMPTY_MESSAGE_IMAGE_PULL = await DB_GENERAL.find({}).toArray();
