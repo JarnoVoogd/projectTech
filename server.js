@@ -1,15 +1,19 @@
-/* eslint-disable no-undef */
+const express = require('express');
+const APP = express();
+const BODY_PARSER = require('body-parser');
+
+
+APP.set('view engine', 'ejs');
+APP.use(express.static('public'));
+APP.use(BODY_PARSER.urlencoded({ extended: false }));
+APP.use(BODY_PARSER.json());
 
 require('dotenv').config();
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
-const mongoose = require('mongoose');
 
 
-/**========================================================================
- *                           Requiring the seperate routes
- *========================================================================**/
+// *********************
+// -- Database and server port config
+// *********************
 
 const PORT = process.env.PORT || 3000;
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -19,19 +23,15 @@ const CLIENT = new MongoClient(
 	{ useNewUrlParser: true, useUnifiedTopology: true, ServerApi: ServerApiVersion.v1}
 );
 
-/**========================================================================
- *                           Requiring the mongoose schemas
- *========================================================================**/
 
-const { songs } = require('./routes/songSchema');
-const { users } = require('./routes/userSchema');
-const { admin } = require('./routes/adminSchema');
+// ******************
+// - Database Collections
+// ******************
 
-/**========================================================================
- *                           Defining and connecting to database
- *========================================================================**/
+const DB = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_PROFILES_NAME)
+const DB_ADMIN = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_ADMIN_NAME)
+const DB_GENERAL = CLIENT.db(process.env.DB_NAME).collection(process.env.COLLECTION_GENERAL_NAME)
 
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URI}`;
 
 // ******************
 // - Middleware
@@ -123,66 +123,56 @@ APP.get('/myprofile/:user', async (req, res) => {
 	res.render('pages/myprofile', {
 		user : CHOSEN_PROFILE
 	});
-	console.log('Succesfully connected');
-}
-main().catch((err) => console.log(err));
+});
 
-/**========================================================================
- *                           Middleware
- *========================================================================**/
 
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// ******************
+// - Following page
+// ******************
+// <--- View the profiles Admin is currently following --->
 
-/**========================================================================
- *                           Templating
- *========================================================================**/
+APP.get('/following', async (req, res) => {
+	const DATA_FOLLOWING = await DB.find({follow : true}).toArray();
+	const EMPTY_MESSAGE_IMAGE_PULL = await DB_GENERAL.find({}).toArray();
+	const EMPTY_MESSAGE_IMAGE = EMPTY_MESSAGE_IMAGE_PULL.find(profile => profile.imageEmpty);
+	if (DATA_FOLLOWING.length < 1) {
+		res.render('pages/following', {
+			FOLLOWING_ARRAY : DATA_FOLLOWING,
+			EMPTY_MESSAGE_H2 : 'You don\'t seem to be following anyone...',
+			EMPTY_IMAGE : EMPTY_MESSAGE_IMAGE.imageEmpty,
+			EMPTY_MESSAGE_P : 'Head on over to the explore page to find new people to follow!'
 
-app.set('view engine', 'ejs');
-
-/**========================================================================
- *                           Routing
- *========================================================================**/
-
-/**----------------------
- *    Home Page
- *------------------------**/
-app.get('/', async (req, res) => {
-	res.send('Welkom op de homepagina');
-
-	try {
-		const allSongs = await songs.find({});
-		console.log('🚀 ~ file: server.js:66 ~ app.get ~ allSongs:', allSongs);
-
-		const allUsers = await users.find({});
-		// console.log("🚀 ~ file: server.js:61 ~ app.get ~ allUsers:", allUsers)
-
-		const allAdmins = await admin.find({});
-		// console.log("🚀 ~ file: server.js:73 ~ app.get ~ allAdmins:", allAdmins)
-	} catch (error) {
-		console.error(error);
+		});
+	} else {
+		res.render('pages/following', {
+			FOLLOWING_ARRAY : DATA_FOLLOWING,
+			EMPTY_MESSAGE_H2 : '',
+			EMPTY_IMAGE : '',
+			EMPTY_MESSAGE_P : ''
+		});
 	}
 });
 
-app.use('/', followingRouter);
-
-/**========================================================================
- *                           404 Error Handler
- *========================================================================**/
-
-app.use((req, res) => {
-	res
-		.status(404)
-		.send(
-			'We`re sorry, we were not able to find the page you were looking for'
-		);
+//  <--- User clicks the unfollow button --->
+APP.post('/following/:subId', async (req, res) => {
+	const SUB_ID = req.params.subId;
+	const FOLLOW_STATUS = req.body.followStatus === 'true';
+    
+	// Update the profile's follow status in the database
+	await DB.updateOne({subId: SUB_ID}, {$set: {follow: FOLLOW_STATUS}});
+  
+	// Redirect the user back to the explore page
+	res.redirect('/following');
 });
 
-/**========================================================================
- *                           Start Webserver
- *========================================================================**/
 
-app.listen(port, () => {
-	console.log(`Server is listening to port: ${port}`);
+
+
+
+// *********************
+// -- 404 Handler
+// *********************
+
+APP.use((req, res) => {
+	res.status(404).send('We\'re sorry, we were not able to find the page you were looking for');
 });
