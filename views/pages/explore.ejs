@@ -21,12 +21,20 @@
         
 
         <div id='profiles'>
+            <% let i = 0; %>
+            <% if (typeof quotes !== 'undefined') { %>
+              <% console.log(quotes); %>
+            <% } %>
             <% profiles.forEach((profile) => { %>
               <div class="<%= profile.subId %>">
                 <h2><%= profile.name %></h2>
                 <p>Age: <%= profile.age %></p>
                 <p><%= profile.songs %></p>
-                <p><%= profile.about %></p>
+                <p>
+                  <% if (typeof quotes !== 'undefined') { %>
+                    <%= quotes[i].content %> - <%= quotes[i].author %>
+                  <% } %>
+                </p>
                 <form action="/follow/<%= profile.subId %>" data-profile-id= "<%= profile.subId %>" method="POST">
                   <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
                   
@@ -38,6 +46,7 @@
                 </form>
                 <img src='<%= profile.image %>'>
               </div>
+              <% i++; %>
             <% }); %>
           </div>
 

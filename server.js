@@ -86,8 +86,20 @@ APP.get('/', async (req, res) => {
 APP.get('/explore', async (req, res) => {
 	const DATA =  await DB.find({}).toArray();
 	console.log('🚀 ~ file: server.js:94 ~ APP.get ~ DATA:', DATA);
-    
-	res.render('pages/explore', {profiles : DATA});
+
+	let quotes = []
+	
+	try {
+        const response = await fetch("https://api.quotable.io/quotes/random?limit=3&maxLength=50");
+    	quotes = await response.json();
+        console.log(quotes);
+        res.render('pages/explore', { profiles: DATA, quotes: quotes });
+    } catch (err) {
+        console.log(err);
+        res.render('pages/explore', { profiles: DATA, quotes: null });
+    }
+	console.log("🚀 ~ file: server.js:91 ~ APP.get ~ quotes:", quotes)
+	res.render('pages/explore', {profiles : DATA}, {quotes : quotes});
 	// res.render('pages/verken', { profiles : profiles});
 });
 
