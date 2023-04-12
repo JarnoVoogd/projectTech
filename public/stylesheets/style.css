@@ -1,33 +1,47 @@
 :root {
-    --fontstyle: 'Lato', sans-serif, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    --mainGroen: #167A74;
-    --mainGrijs: #f2f2f2;
-    --mainGeel: #EBAD36;
-    --tekstWit: #ffffff;
-    --tekstZwart: #000000;
+    --fontstyle: 'Poppins', sans-serif, 'Lato', sans-serif, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    --accentRoze: #f72585;
+    --grijs: #f1f2f0;
+    --accentDonkerBlauw: #3a0ca3;
+    --accentMidBlauw: #4361ee;
+    --accentLichtBlauw: #4cc9f0;
+    --wit: #ffffff;
+    --zwart: #000000;
+    --accentPaars: #7209b7;
+    --vlakPaars: rgba(255, 255, 255, 0.2);
 }
 
 html {
     margin: 0px;
     max-height: auto;
     scroll-behavior: smooth;
+    background-color: var(--grijs);
+    background: rgb(247, 37, 133);
+    background:
+        /* linear-gradient(48deg, rgba(247,37,133,1) 0%, rgba(114,9,183,1) 15%, rgba(58,12,163,1) 50%, rgba(67,97,238,1) 85%, rgba(76,201,240,1) 100%);  */
+        linear-gradient(205deg, #4361ee 0%, #435fec 0%, #3a0ca3 23.7%, #7209b7 56.2%, #f72585 150%) fixed;
+    min-height: 100%;
+    width: 100vw;
 }
 
- 
+
+/**========================================================================
+ *                           Body
+ *========================================================================**/
 
 body {
     width: 100%;
-    height: auto;
+    height: 100vh;
     font-family: var(--fontstyle);
     color: rgb(0, 0, 0);
     text-align: center;
-    display: grid; 
-    grid-template-columns: 1fr 6fr 1fr ;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: auto 6fr 1fr;
-    grid-template-areas: 
-    "header header header"
-    ". main ."
-    "footer footer footer";
+    grid-template-areas:
+        "header header header"
+        ". main ."
+        "footer footer footer";
     justify-content: stretch;
     gap: 1.5em 0px;
     margin: 0 auto 0 auto;
@@ -36,19 +50,25 @@ body {
     justify-content: center;
 }
 
-/*******************************************  
-Header
-*******************************************/
+body > main > h1 {
+    color: var(--wit);
+}
+
+
+/**========================================================================
+ *                           Header
+ *========================================================================**/
 
 header {
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
     grid-template-rows: 1fr;
-    background-color: var(--mainGrijs);
+    /* background-color: var(--grijs); */
     height: auto;
     justify-content: center;
     align-items: center;
+    font-size: 120%;
 
 }
 
@@ -61,22 +81,63 @@ header nav ul {
     padding: 0;
     display: flex;
     flex-direction: row;
-    justify-content: center;  
+    justify-content: center;
     list-style-type: none;
 
 }
 
-header li {
-    padding: 1em;
-    margin: 0 1em 0 1em;
-    background-color: var(--tekstZwart);
-    border-radius: 10%;
-    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
+header nav li a {
+    color: var(--zwart);
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0 0.9em;
+    padding: 0.4em 0.2em;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    color: var(--wit);
 }
 
-header li a {
-    text-decoration: none;
-    color: var(--mainGeel);
+header nav li a:before,
+header nav li a:after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 0%;
+    left: -0.5em;
+    border-radius: 85px 85px 85px 85px;
+}
+
+header nav li a:before {
+    bottom: 0;
+    transition: 0.5s;
+}
+
+header nav li a:after {
+    background: var(--accentLichtBlauw);
+    top: 0;
+}
+
+header nav li a:hover:before {
+    background: var(--accentLichtBlauw);
+    height: 100%;
+    transition: height 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+}
+
+header nav li a.active:before,
+header nav li a.active:after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 100%;
+    left: -0.5em;
+    border-radius: 85px 85px 85px 85px;
+    bottom: 0;
+    background: var(--accentLichtBlauw);
 }
 
 .sticky {
@@ -85,9 +146,10 @@ header li a {
     width: 100%;
 }
 
-/*******************************************  
-Main Home
-*******************************************/
+
+/**========================================================================
+ *                           Main Home
+ *========================================================================**/
 
 main {
     grid-area: main;
@@ -97,92 +159,143 @@ footer {
     grid-area: footer;
 }
 
-/*******************************************  
-Main MyProfile
-*******************************************/
+
+/**========================================================================
+ *                           Main MyProfile
+ *========================================================================**/
 
 main.myProfile-main {
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    grid-template-areas: 
-    "title"
-    "container";
 }
 
-main div.myProfile-container {
-    grid-area: container;
+div#myProfile-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr 1fr ;
-    grid-template-areas: 
-    "name button image image"
-    "age songs image image"
-    "about about image image";
-    background-color: var(--mainGrijs);
+    grid-template-columns: 0.1fr 1.25fr 0.65fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr 1fr 1.2fr 1.2fr 1.2fr 1.2fr;
+    grid-template-areas:
+        ". . . image image"
+        ". name button image image"
+        ". age . image image"
+        ". moodsHeading moodsHeading image image"
+        ". moods moods image image"
+        ". favSongsHeading favSongsHeading image image"
+        ". favSongs favSongs image image";
+    background-color: var(--wit);
     margin: 0 0 2em 0;
     align-items: center;
-    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
+    justify-items: start;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 30px;
+    min-width: 45em;
 }
 
-h1.myProfile-title{
-    grid-area: title;
-}
-
-h2.myProfile-name {
-    grid-area: name;
-}
-
-p.myProfile-about {
-    grid-area: about;
-    margin: 0 2em 0 2em;
-}
-
-p.myProfile-songs {
-    grid-area: songs;
-}
-
-img.myProfile-image {
+div#myProfile-container img {
     grid-area: image;
-    height: auto;
-    width: auto;
+    width: 100%;
     max-width: 100%;
+    max-height: 25em;
+    height: 100%;
+    min-width: 15em;
+    min-height: 22em;
+    border-radius: 0 30px 30px 0;
 }
 
-/* button.myProfile-but1 {
-    grid-area: button1;
+div#myProfile-container h2 {
+    grid-area: name;
+    color: var(--accentMidBlauw);
+    font-size: 2em;
+    align-self: start;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: -0.5em;
 }
 
-button.myProfile-but2 {
-    grid-area: button2;
+div#myProfile-container p:nth-of-type(1) {
+    grid-area: age;
+    align-self: start;
+    margin: 0 0 -0.5em;
+}
+
+div#myProfile-container p:nth-of-type(2) {
+    grid-area: favSongsHeading;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
+
+    background:
+        linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+div#myProfile-container p:nth-of-type(3) {
+    grid-area: favSongs;
+    margin: 0;
+    align-self: start;
+}
+
+div#myProfile-container p:nth-of-type(4) {
+    grid-area: moodsHeading;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
+
+    background:
+        linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+div#myProfile-container p:nth-of-type(5) {
+    grid-area: moods;
+    margin: 0;
+    align-self: start;
+}
+
+/* div#myProfile-container form {
+    grid-area: form;
+    justify-self: start;
+    align-self: start;  
+    margin-top: 0.5em;  
 } */
 
-a.myProfile-ahref {
+div#myProfile-container a {
+    all: unset;
     grid-area: button;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 3em;
-    margin: 0 2em 0 2em;
-    background-color: var(--tekstZwart);
-    color: var(--mainGeel);
-    text-decoration: none;
-    
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 9px;
+    color: var(--wit);
 
-   
-    
+    background-color: var(--accentMidBlauw);
+    border: 0.2em solid var(--accentMidBlauw);
+    transition: all 0.3s;
+
+}
+
+div#myProfile-container a:hover {
+    grid-area: button;
+    color: var(--accentMidBlauw);
+    background-color: var(--wit);
+    transition: all 0.3s;
+
 }
 
 .footerText {
-   font-weight: 100 ;
+    font-weight: 100;
 }
 
 
 
-/*******************************************  
-Main Explore
-*******************************************/
+/**========================================================================
+ *                           Main Explore
+ *========================================================================**/
 
 /* main.explore-main {
     display: grid;
@@ -197,53 +310,133 @@ div#profiles {
 }
 
 div#profiles div {
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto ;
-    grid-template-areas: 
-    "name button image image"
-    "age songs image image"
-    "about about image image";
-    background-color: var(--mainGrijs);
+    display: grid;
+    grid-template-columns: 0.1fr 1.25fr 0.65fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr 1fr 1.2fr 1.2fr 1.2fr 1.2fr;
+    grid-template-areas:
+        ". . . image image"
+        ". name form image image"
+        ". age . image image"
+        ". moodsHeading moodsHeading image image"
+        ". moods moods image image"
+        ". favSongsHeading favSongsHeading image image"
+        ". favSongs favSongs image image";
+    background-color: var(--wit);
     margin: 0 0 2em 0;
     align-items: center;
-    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
+    justify-items: start;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 30px;
+    min-width: 45em;
+
 }
 
-div#profiles img{
+div#profiles img {
     grid-area: image;
-    width: auto;
+    width: 100%;
     max-width: 100%;
+    max-height: 25em;
+    height: 100%;
+    min-width: 15em;
+    min-height: 22em;
+    border-radius: 0 30px 30px 0;
 }
 
-div#profiles h2{
+div#profiles h2 {
     grid-area: name;
+    color: var(--accentMidBlauw);
+    font-size: 2em;
+    align-self: start;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: -0.5em;
 }
 
 div#profiles p:nth-of-type(1) {
     grid-area: age;
+    align-self: start;
+    margin: 0 0 -0.5em;
 }
 
 div#profiles p:nth-of-type(2) {
-    grid-area: songs;
+    grid-area: favSongsHeading;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
+
+    background:
+        linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
 }
 
+
 div#profiles p:nth-of-type(3) {
-    grid-area: about;
+    grid-area: favSongs;
+    margin: 0;
+    align-self: start;
+}
+
+div#profiles p:nth-of-type(4) {
+    grid-area: moodsHeading;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
+
+    background:
+        linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+div#profiles p:nth-of-type(5) {
+    grid-area: moods;
+    margin: 0;
+    align-self: start;
+}
+
+div#profiles form {
+    grid-area: form;
+    justify-self: start;
+    align-self: start;
+    margin-top: 0.5em;
 }
 
 div#profiles button {
     grid-area: button;
+    all: unset;
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 9px;
+    color: var(--wit);
+
+    background-color: var(--accentMidBlauw);
+    border: 0.2em solid var(--accentMidBlauw);
+    transition: all 0.3s;
+}
+
+div#profiles button:hover {
+    grid-area: button;
+    color: var(--accentMidBlauw);
+    background-color: var(--wit);
+    transition: all 0.3s;
+
 }
 
 .footerText {
-   font-weight: 100 ;
+    font-weight: 100;
 }
 
 
-/*******************************************  
-Main Following
-*******************************************/
+/**========================================================================
+ *                           Main Following
+ *========================================================================**/
 
 /* main.explore-main {
     display: grid;
@@ -254,63 +447,866 @@ Main Following
 
 div#following-profiles {
     display: grid;
-
 }
 
 div#following-profiles div {
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto ;
-    grid-template-areas: 
-    "name button image image"
-    "age songs image image"
-    "about about image image";
-    background-color: var(--mainGrijs);
+    display: grid;
+    grid-template-columns: 0.1fr 1.25fr 0.65fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr 1fr 1.2fr 1.2fr 1.2fr 1.2fr;
+    grid-template-areas:
+        ". . . image image"
+        ". name form image image"
+        ". age . image image"
+        ". moodsHeading moodsHeading image image"
+        ". moods moods image image"
+        ". favSongsHeading favSongsHeading image image"
+        ". favSongs favSongs image image";
+    background-color: var(--wit);
     margin: 0 0 2em 0;
     align-items: center;
-    box-shadow:  3px 3px 5px 0px rgba(0,0,0,0.75);
+    justify-items: start;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 30px;
+    min-width: 45em;
 }
 
-div#following-profiles img{
+div#following-profiles img {
     grid-area: image;
-    width: auto;
+    width: 100%;
     max-width: 100%;
+    max-height: 25em;
+    height: 100%;
+    min-width: 15em;
+    min-height: 22em;
+    border-radius: 0 30px 30px 0;
 }
 
-div#following-profiles h2{
+div#following-profiles h2 {
     grid-area: name;
+    color: var(--accentPaars);
+    font-size: 2em;
+    align-self: start;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: -0.5em;
 }
 
 div#following-profiles p:nth-of-type(1) {
     grid-area: age;
+    align-self: start;
+    margin: 0 0 -0.5em;
 }
 
 div#following-profiles p:nth-of-type(2) {
-    grid-area: songs;
+    grid-area: favSongsHeading;
+    font-weight: 700;
+    border: 0.2em solid var(--accentLichtBlauw);
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
 }
 
 div#following-profiles p:nth-of-type(3) {
-    grid-area: about;
+    grid-area: favSongs;
+    margin: 0;
+    align-self: start;
+}
+
+div#following-profiles p:nth-of-type(4) {
+    grid-area: moodsHeading;
+    font-weight: 700;
+    border: 0.2em solid var(--accentLichtBlauw);
+    padding: 0.1em 0.5em;
+    border-radius: 9px;
+    margin: 0.5em 0 -0.5em;
+    align-self: start;
+}
+
+div#following-profiles p:nth-of-type(5) {
+    grid-area: moods;
+    margin: 0;
+    align-self: start;
+}
+
+div#following-profiles form {
+    grid-area: form;
+    justify-self: start;
+    align-self: start;
+    margin-top: 0.5em;
 }
 
 div#following-profiles button {
     grid-area: button;
+    all: unset;
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 9px;
+    color: var(--wit);
+    background-color: var(--accentPaars);
+    border: 0.2em solid var(--accentPaars);
+    transition: all 0.3s;
+}
+
+div#following-profiles button:hover {
+    grid-area: button;
+    color: var(--accentPaars);
+    background-color: var(--wit);
+    transition: all 0.3s;
+
 }
 
 div#empty-message {
     padding: 2em;
-    background-color: var(--mainGrijs);
+    background-color: var(--grijs);
 }
 
-div#empty-message img{
+div#empty-message img {
     height: auto;
     width: 30%;
 }
 
 .footerText {
-   font-weight: 100 ;
+    font-weight: 100;
 }
 
 .empty-message-hidden {
     display: none;
+}
+
+dialog {
+    border-radius: 15px;
+}
+
+dialog form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 1em;
+    width: auto;
+    height: 15%;
+    grid-template-areas:
+        "label label"
+        "cancel confirm";
+}
+
+dialog label {
+    grid-area: label;
+    padding: 0 1em 2em;
+
+}
+
+dialog form button#confirmBtn {
+    grid-area: confirm;
+    all: unset;
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 9px;
+    color: var(--wit);
+    background-color: var(--accentPaars);
+    border: 0.2em solid var(--accentPaars);
+    transition: all 0.3s;
+}
+
+dialog form button#cancelBtn {
+    grid-area: cancel;
+    all: unset;
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 9px;
+    color: var(--wit);
+    background-color: var(--accentPaars);
+    border: 0.2em solid var(--accentPaars);
+    transition: all 0.3s;
+}
+
+dialog form button#cancelBtn:hover,
+dialog form button#confirmBtn:hover {
+    color: var(--accentPaars);
+    background-color: var(--wit);
+    transition: all 0.3s;
+}
+
+
+
+/**========================================================================
+ *                           Filter page
+ *========================================================================**/
+
+main.elaine {
+    width: 100%;
+}
+
+main.elaine h2,
+main.elaine p {
+    color: var(--wit);
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 2em;
+}
+
+.filters section {
+    border-radius: .75em;
+    height: max-content;
+    background-color: var(--vlakPaars);
+
+}
+
+.filters fieldset {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: none;
+    margin: 0;
+    padding: 1em;
+}
+
+.filters label {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 1em;
+    background: var(--wit);
+    color: var(--accentPaars);
+    transition: 0.4s;
+}
+
+.filters input[type='checkbox'] {
+    display: none;
+}
+
+.filters input[type='checkbox']:checked+label {
+    background:
+        linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+
+    color: var(--wit);
+    font-weight: 800;
+    transition: 0.4s;
+}
+
+.elaine .submit {
+    cursor: pointer;
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: 1em;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+/**========================================================================
+ *                           Filter results
+ *========================================================================**/
+
+.heading {
+    color: var(--wit);
+}
+
+
+/**========================================================================
+ *                           Matching
+ *========================================================================**/
+
+body.matching {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    /* grid-template-rows: auto auto; */
+    grid-template-areas:
+        'header header header'
+        '. main .';
+    gap: 0 !important;
+}
+
+main.mainmatch {
+    width: 100%;
+    height: auto;
+    font-family: var(--fontstyle);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    gap: 1.5em 0px;
+    margin: 0 auto 0 auto;
+    text-decoration: none;
+    text-decoration-line: none;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        '. heading .'
+        '. form .';
+
+}
+
+/****************************/
+/* TEMPLATE AREAS */
+/****************************/
+
+form>section>section {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+form.form {
+    grid-area: form;
+}
+
+section.heading {
+    grid-area: heading;
+}
+
+
+
+/****************************/
+/* FORMULIERENNPAGINA */
+/****************************/
+
+body.matching {
+    background:
+        /* linear-gradient(48deg, rgba(247,37,133,1) 0%, rgba(114,9,183,1) 15%, rgba(58,12,163,1) 50%, rgba(67,97,238,1) 85%, rgba(76,201,240,1) 100%);  */
+        linear-gradient(205deg, #4361ee 0%, #435fec 0%, #3a0ca3 23.7%, #7209b7 56.2%, #f72585 150%);
+    background-size: 100vw 100vh;
+}
+
+body.matching>main.mainmatch>section.heading>h1,
+body.matching>main.mainmatch>section.heading>p {
+    color: var(--wit);
+}
+
+body.matching>main.mainmatch>section.heading>h1 {
+    font-size: 2em;
+    margin-bottom: 5vh;
+    color: var(--wit);
+}
+
+body.matching>main.mainmatch>section.heading>p {
+    margin-bottom: 0;
+}
+
+body.matching form>section {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    align-items: center;
+    background-color: var(--vlakPaars);
+    border-radius: .75em;
+    padding: 2em;
+    margin-bottom: 3.5em;
+    height: max-content;
+}
+
+body.matching form input[type="checkbox"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+    cursor: pointer;
+}
+
+body.matching>main.mainmatch label {
+    /* font-size: small; */
+    background-color: var(--wit);
+    color: var(--accentPaars);
+    padding: 0 2em;
+    border-radius: 1em;
+}
+
+body.matching>main.mainmatch label:hover {
+    cursor: pointer;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+
+}
+
+body.matching>main.mainmatch>form>section>section:not(:last-of-type)>label {
+    margin-bottom: 1em;
+}
+
+body.matching>main.mainmatch>form>section>section>input[type="checkbox"]:checked+label {
+    font-weight: 700;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+body.matching>main.mainmatch>form>input[type="submit"] {
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: 1em;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+}
+
+body.matching>main.mainmatch>form>input[type="submit"]:hover {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/****************************/
+/* RESULTATENPAGINA */
+/****************************/
+
+main.mainresult>section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10em;
+    grid-row-gap: 0px;
+}
+
+body.matching>main.mainresult>section>section>section:first-of-type>h1 {
+    font-size: 2em;
+    color: var(--wit);
+    margin: .5em auto .5em auto;
+}
+
+#lieddetails p:first-of-type {
+    font-weight: 700;
+    font-size: 1.5em;
+    margin: .5em 0 0 0;
+    color: var(--wit);
+}
+
+#lieddetails p:nth-of-type(2) {
+    margin: 0 0 .5em 0;
+    color: var(--wit);
+}
+
+#lieddetails img {
+    width: 25vw;
+    margin: 0 auto 1em auto;
+    position: relative;
+    border-radius: 1em;
+}
+
+#audio {
+    display: block;
+    height: 4em;
+    width: 85vw;
+    position: absolute;
+    border-radius: inherit;
+    bottom: 3.5em;
+}
+
+#play-knop {
+    cursor: pointer;
+    font-size: 3em;
+    color: var(--wit);
+}
+
+audio {
+    width: 80vw;
+}
+
+#songtimer {
+    width: inherit;
+    margin-top: 2.25em;
+    color: white;
+}
+
+#tijd {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.progress-bar {
+    position: relative;
+    width: 40vw;
+    height: 3px;
+    border-radius: 2em;
+    margin: auto 1em;
+    background-color: var(--wit);
+}
+
+.tijd-indicator {
+    border-radius: 2em;
+    width: 1.5em;
+    height: 1.5em;
+    top: -.7em;
+    background-color: var(--wit);
+    position: absolute;
+    left: 0;
+}
+
+.controls {
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    position: relative;
+}
+
+.controls>a:first-of-type>img {
+    height: 1.5em;
+}
+
+.controls>a:nth-of-type(2)>i {
+    height: 1.5em;
+    color: var(--wit);
+}
+
+/**************************/
+/*     ALMOST-MATCHES     */
+/**************************/
+.othermatches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+    margin: auto;
+
+    color: var(--wit);
+}
+
+.othermatches * {
+    margin: 0;
+}
+
+.othermatches>p {
+    margin-bottom: 2em;
+}
+
+.othermatches>section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    width: 25vw;
+    gap: 1em;
+
+    background-color: var(--vlakPaars);
+    padding: 1em 2em;
+    border-radius: 1em;
+}
+
+.othermatches>section img {
+    height: 6vh;
+}
+
+.othermatches>section>i {
+    margin-left: auto;
+}
+
+.othermatches>section>i:hover {
+    cursor: pointer;
+}
+
+.othermatches>section h3 {
+    font-weight: 300;
+    font-size: 1em;
+}
+
+/****************************/
+/* ***** Liking Pagina **** */
+/****************************/
+
+div#like {
+    display: grid;
+    gap: 2em;
+}
+
+div#like div {
+    display: grid;
+    grid-template-columns: 0.1fr 1.25fr 0.65fr 0.2fr 1fr 1fr;
+    grid-template-rows: 0.05fr 0.2fr 0.1fr 0.7fr;
+    grid-template-areas:
+        ". . . . image image"
+        ". artist form . image image"
+        ". artist . . image image"
+        ". songTitle songTitle . image image";
+    background-color: var(--wit);
+    align-items: center;
+    justify-items: start;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 1.875em;
+    min-width: 45em;
+}
+
+
+div#like .image-gradient {
+    position: relative;
+    grid-area: image;
+    width: 100%;
+    max-width: 100%;
+    max-height: 10em;
+    height: 100%;
+    min-width: 15em;
+    min-height: 22em;
+    border-radius: 0 30px 30px 0;
+    overflow: hidden;
+}
+
+div#like .image-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, var(--accentPaars), rgba(0, 0, 0, 0));
+    border-radius: 0 30px 30px 0;
+    z-index: 1;
+}
+
+div#like img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+div#like h2 {
+    grid-area: songTitle;
+    color: var(--accentPaars);
+    font-size: 2.5em;
+    align-self: start;
+    margin: 0;
+    font-weight: bold;
+}
+
+div#like p:nth-of-type(1) {
+    grid-area: artist;
+    align-self: start;
+    margin-top: 0.12em;
+    color: var(--accentPaars);
+    font-size: 1.5em;
+}
+
+div#like form {
+    grid-area: form;
+    justify-self: start;
+    align-self: start;
+}
+
+div#like button {
+    grid-area: button;
+    all: unset;
+    padding: 0.1em 2em;
+    cursor: pointer;
+    border-radius: 15px;
+    color: var(--wit);
+    background-color: var(--accentPaars);
+    border: 0.2em solid var(--accentPaars);
+    transition: all 0.3s;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+div#like button:hover {
+    grid-area: button;
+    color: var(--accentPaars);
+    background-color: var(--wit);
+    transition: all 0.3s;
+}
+
+/******************************/
+/* **** Regsiter Pagina ***** */
+/******************************/
+
+.maintristan {
+    display: block;
+    margin: 0 auto;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--wit);
+    width: 35rem;
+    height: 45rem;
+
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.registerform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.registerform button {
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: .5em 1em;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+    transition: .5s;
+}
+
+.registerform button:hover {
+    cursor: pointer;
+    transform: translatey(-.2em);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/******************************/
+/* *****  Login Pagina ****** */
+/******************************/
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--wit);
+    width: 35rem;
+    height: 30rem;
+
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.loginform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.loginform button {
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: .5em 1em;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+    transition: .5s;
+}
+
+.loginform button:hover {
+    cursor: pointer;
+    transform: translatey(-.2em);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+input[type=text] {
+    width: 98%;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    height: 40px;
+    padding: 0 5px;
+}
+
+input[type=text]:focus {
+    border-bottom: 1px solid var(--accentDonkerBlauw);
+    outline: 0;
+    caret-color: var(--accentDonkerBlauw);
+}
+
+input[type=email] {
+    width: 98%;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    height: 40px;
+    padding: 0 5px;
+}
+
+input[type=email]:focus {
+    border-bottom: 1px solid var(--accentDonkerBlauw);
+    outline: 0;
+    caret-color: var(--accentDonkerBlauw);
+}
+
+input[type=password] {
+    width: 98%;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    height: 40px;
+    padding: 0 5px;
+}
+
+input[type=password]:focus {
+    border-bottom: 1px solid var(--accentDonkerBlauw);
+    outline: 0;
+    caret-color: var(--accentDonkerBlauw);
+}
+
+/******************************/
+/* *****  Account Pagina **** */
+/******************************/
+
+.account {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    background-color: var(--wit);
+    width: 35rem;
+    height: 30rem;
+
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.accountform button {
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: .5em 1em;
+    background: linear-gradient(100deg,
+            var(--accentMidBlauw) 30%,
+            var(--accentLichtBlauw) 100%);
+    color: var(--wit);
+    transition: .5s;
+}
+
+.accountform button:hover {
+    cursor: pointer;
+    transform: translatey(-.2em);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.removeform button {
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    padding: .5em 1em;
+    background: linear-gradient(100deg,
+            var(--accentRoze) 30%,
+            var(--accentPaars) 100%);
+    color: var(--wit);
+    transition: .5s;
+}
+
+.removeform button:hover {
+    cursor: pointer;
+    transform: translatey(-.2em);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
