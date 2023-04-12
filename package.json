@@ -25,6 +25,7 @@
     "mime": "^3.0.0",
     "mkdirp": "^1.0.4",
     "mongodb": "^5.1.0",
+    "mongoose": "^7.0.3",
     "node": "^19.6.1",
     "servestatic": "^0.0.0",
     "slug": "^8.2.2"
