@@ -26,7 +26,7 @@ unfollowButtons.forEach(button => {
     const confirmBtn = dialog.querySelector("#confirmBtn");
     confirmBtn.addEventListener("click", event => {
       event.preventDefault();
-      form.setAttribute("action", `/following/followlist/${profileId}`);
+      form.setAttribute("action", `/following/${profileId}`);
       form.submit();
     });
 

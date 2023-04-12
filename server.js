@@ -17,7 +17,7 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const URI = process.env.DB_CONNECTION_STRING;
+const URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}${process.env.DB_URI}`;
 const CLIENT = new MongoClient(
 	URI,
 	{ useNewUrlParser: true, useUnifiedTopology: true, ServerApi: ServerApiVersion.v1}
@@ -92,7 +92,7 @@ APP.get('/explore', async (req, res) => {
 });
 
 //  <--- User clicks follow button ---> 
-APP.post('following/follow/:subId', async (req, res) => {
+APP.post('/following/follow/:subId', async (req, res) => {
 	const SUB_ID = req.params.subId;
 	const FOLLOW_STATUS = req.body.followStatus === 'true';
 	console.log('🚀 ~ file: server.js:150 ~ APP.post ~ req.body.followStatus:', req.body.followStatus);
