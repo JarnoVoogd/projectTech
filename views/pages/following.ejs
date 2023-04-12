@@ -29,7 +29,7 @@
                 <p>Age:<%= profile.age %></p>
                 <p><%= profile.songs %></p>
                 <p><%= profile.about %></p>
-                <form action="/following/<%= profile.subId %>" method="POST">
+                <form action="/following/<%= profile.subId %>" data-profile-id= "<%= profile.subId %>" method="POST">
                   <!-- <input type="hidden" name="profile_id" value="<%= profile.subId %>"> -->
                   <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
                   <% if (profile.follow) { %>
@@ -49,7 +49,8 @@
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
-    
+    <script src='/scripts/navbarScript.js'></script>
+    <script src='/scripts/followingConfirmButtonScript.js'></script>
 </body>
 </html>
 
