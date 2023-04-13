@@ -20,8 +20,7 @@ followButtons.forEach(button => {
       </form>
     `;
     document.body.appendChild(dialog);
-    // dialog.showModal()
-    
+  
     if (button.textContent == 'Unfollow') {
       dialog.showModal();
     } else {
