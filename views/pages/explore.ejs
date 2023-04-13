@@ -1,57 +1,52 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <%- include('../partials/head'); %>
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <%- include('../partials/head'); %>
 
-    <title>About</title>
+  <title>About</title>
 </head>
 
 <body>
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+  <header>
+      <%- include('../partials/header'); %>
+  </header>
 
-    <main class='explore-main'>
-        <h1>Explore</h1>
-        <p>Find new people to follow!</p>
-
-        
-
-        <div id='profiles'>
-            <% let i = 0; %>
+  <main class='explore-main'>
+    <h1>Explore</h1>
+    <p>Find new people to follow!</p>
+    <div id='profiles'>
+      <% let i = 0; %>
+      <% if (typeof quotes !== 'undefined') { %>
+        <% console.log(quotes); %>
+      <% } %>
+      <% profiles.forEach((profile) => { %>
+        <div class="<%= profile.subId %>">
+          <h2><%= profile.name %></h2>
+          <p>Age: <%= profile.age %></p>
+          <p><%= profile.songs %></p>
+          <p id="quoteAndAuthor">
             <% if (typeof quotes !== 'undefined') { %>
-              <% console.log(quotes); %>
+              <%= quotes[i].content %> - <%= quotes[i].author %>
             <% } %>
-            <% profiles.forEach((profile) => { %>
-              <div class="<%= profile.subId %>">
-                <h2><%= profile.name %></h2>
-                <p>Age: <%= profile.age %></p>
-                <p><%= profile.songs %></p>
-                <p>
-                  <% if (typeof quotes !== 'undefined') { %>
-                    <%= quotes[i].content %> - <%= quotes[i].author %>
-                  <% } %>
-                </p>
-                <form action="/follow/<%= profile.subId %>" data-profile-id= "<%= profile.subId %>" method="POST">
-                  <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
-                  
-                  <% if (profile.follow) { %>
-                    <button>Unfollow</button>
-                  <% } else { %>
-                    <button>Follow</button>
-                  <% } %>
-                </form>
-                <img src='<%= profile.image %>'>
-              </div>
-              <% i++; %>
-            <% }); %>
-          </div>
-
-    
-    </main>
+          </p>
+          <form action="/follow/<%= profile.subId %>" data-profile-id= "<%= profile.subId %>" method="POST">
+            <input type="hidden" name="followStatus" value="<%= profile.follow ? 'false' : 'true' %>">
+            
+            <% if (profile.follow) { %>
+              <button>Unfollow</button>
+            <% } else { %>
+              <button>Follow</button>
+            <% } %>
+          </form>
+          <img src='<%= profile.image %>'>
+        </div>
+        <% i++; %>
+      <% }); %>
+    </div>
+  </main>
 
     <footer>
         <%- include('../partials/footer'); %>

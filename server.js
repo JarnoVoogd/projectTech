@@ -71,9 +71,7 @@ APP.get('/', async (req, res) => {
 	const DATA = await DB.find({}).toArray();
 	// console.log('@@-- data', DATA);
     
-	res.render('pages/index', 
-		{profiles : DATA}
-	);
+	res.redirect('/explore');
    
 });
 
@@ -96,10 +94,8 @@ APP.get('/explore', async (req, res) => {
         res.render('pages/explore', { profiles: DATA, quotes: quotes });
     } catch (err) {
         console.log(err);
-        res.render('pages/explore', { profiles: DATA, quotes: null });
+        res.render('pages/explore', { profiles: DATA });
     }
-	console.log("🚀 ~ file: server.js:91 ~ APP.get ~ quotes:", quotes)
-	res.render('pages/explore', {profiles : DATA}, {quotes : quotes});
 	// res.render('pages/verken', { profiles : profiles});
 });
 
